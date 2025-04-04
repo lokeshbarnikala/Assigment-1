@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Advanced Placement Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .question { margin: 20px; font-size: 18px; }
+        .options button { display: block; margin: 10px auto; padding: 10px; width: 300px; cursor: pointer; }
+        .result { font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>C Advanced Placement Test</h2>
+    <div id="quiz-container">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What does the 'static' keyword do in C?", options: ["Restricts variable scope", "Increases execution speed", "Prevents variable initialization", "Makes variable global"], answer: "Restricts variable scope" },
+            { q: "Which library function is used to compare two strings in C?", options: ["strcmp()", "strcpy()", "strlen()", "strcat()"], answer: "strcmp()" },
+            { q: "What is the purpose of the 'extern' keyword in C?", options: ["To declare a global variable", "To allocate memory dynamically", "To define a function inline", "To declare a variable without defining it"], answer: "To declare a variable without defining it" },
+            { q: "Which of the following is a valid C loop structure?", options: ["for", "while", "do-while", "All of the above"], answer: "All of the above" },
+            { q: "Which operator is used to access a structure member using a pointer?", options: [".", "->", "*", "&"], answer: "->" },
+            { q: "What is the size of an int in C (typically)?", options: ["2 bytes", "4 bytes", "8 bytes", "Depends on system"], answer: "Depends on system" },
+            { q: "Which data type is used to store a single character in C?", options: ["char", "int", "float", "double"], answer: "char" },
+            { q: "Which function is used to allocate dynamic memory in C?", options: ["malloc()", "calloc()", "Both malloc() and calloc()", "None of the above"], answer: "Both malloc() and calloc()" },
+            { q: "What is the output of printf('%d', 5==5);?", options: ["1", "0", "5", "Compilation error"], answer: "1" },
+            { q: "Which of the following is NOT a valid identifier in C?", options: ["_variable", "2variable", "variable_name", "VAR123"], answer: "2variable" },
+            { q: "Which operator is used for bitwise AND in C?", options: ["&", "|", "^", "&&"], answer: "&" },
+            { q: "Which of the following header files is required for file handling in C?", options: ["<stdio.h>", "<stdlib.h>", "<string.h>", "<math.h>"], answer: "<stdio.h>" },
+            { q: "What is the default return type of the main() function in C?", options: ["void", "int", "char", "float"], answer: "int" },
+            { q: "Which of the following is used to terminate a loop prematurely?", options: ["break", "continue", "exit", "return"], answer: "break" },
+            { q: "What is the output of sizeof(int) on a 32-bit system?", options: ["2", "4", "8", "Depends on compiler"], answer: "4" },
+            { q: "Which function is used to read a string from input in C?", options: ["scanf()", "gets()", "fgets()", "All of the above"], answer: "All of the above" },
+            { q: "Which keyword is used to prevent modification of a variable in C?", options: ["static", "const", "volatile", "extern"], answer: "const" },
+            { q: "Which function is used to deallocate dynamic memory in C?", options: ["free()", "delete()", "remove()", "dealloc()"], answer: "free()" },
+            { q: "Which of the following is a valid format specifier for a floating-point number in C?", options: ["%d", "%f", "%c", "%s"], answer: "%f" },
+            { q: "What will be the output of printf('%c', 65);?", options: ["65", "A", "Error", "None of the above"], answer: "A" }
+        ];
+        
+        let currentQuestion = 0;
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById("question").innerText = q.q;
+            const optionsDiv = document.getElementById("options");
+            optionsDiv.innerHTML = "";
+            q.options.forEach(option => {
+                let btn = document.createElement("button");
+                btn.innerText = option;
+                btn.onclick = () => checkAnswer(option);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected) {
+            const resultDiv = document.getElementById("result");
+            if (selected === questions[currentQuestion].answer) {
+                resultDiv.innerText = "Correct! ✅";
+            } else {
+                resultDiv.innerText = "Wrong! ❌ The correct answer is: " + questions[currentQuestion].answer;
+            }
+            setTimeout(() => {
+                resultDiv.innerText = "";
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    document.getElementById("quiz-container").innerHTML = "<h3>Test Completed! 🎉</h3>";
+                }
+            }, 2000);
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
